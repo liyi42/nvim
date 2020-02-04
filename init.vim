@@ -15,6 +15,8 @@ call plug#end()
 set cc=80
 " Line Number
 set nu
+" remap leader
+let mapleader=","
 
 " Colorscheme
 set termguicolors
@@ -61,3 +63,11 @@ let g:gutentags_plus_switch = 1
 let g:gutentags_auto_add_gtags_cscope = 0
 let $GTAGSLABEL = 'native-pygments'
 let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+
+" Vim-preview
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+noremap <m-u> :PreviewScroll -1<cr>
+noremap <m-d> :PreviewScroll +1<cr>
+inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
