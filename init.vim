@@ -30,6 +30,9 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 " close buffer
 noremap <C-x> :q<cr>
+" Change tags                                                                   
+noremap <S-j> :tabp<cr>                                                         
+noremap <S-K> :tabn<cr>
 
 " Colorscheme
 set termguicolors
