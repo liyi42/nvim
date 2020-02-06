@@ -9,9 +9,10 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --clang-complete' }
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'preservim/nerdtree'
 call plug#end()
 
 " Common config
@@ -41,7 +42,7 @@ colorscheme gruvbox-material
 let g:airline_theme = 'gruvbox_material'
 
 " Tagbar
-nmap <F8> :TagbarToggle<cr>
+noremap <leader>tb :TagbarToggle<cr>
 
 " Gutentags
 " project directory flag"
@@ -125,3 +126,8 @@ let g:ycm_filetype_whitelist = {
 			\ "zsh":1,
 			\ "zimbu":1,
 			\ }
+" NERDTree
+noremap <leader>nt :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
