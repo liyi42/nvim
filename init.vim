@@ -13,6 +13,7 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'preservim/nerdtree'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 call plug#end()
 
 " Common config
@@ -127,7 +128,25 @@ let g:ycm_filetype_whitelist = {
 			\ "zimbu":1,
 			\ }
 " NERDTree
-noremap <leader>nt :NERDTreeToggle<CR>
+noremap <leader>nt :NERDTreeToggle<cr>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+" Leaderf
+" don't show the help in normal mode
+let g:Lf_ShortcutF = "<leader>ff"
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+" popup mode
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<cr><cr>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<cr><cr>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<cr><cr>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<cr><cr>
