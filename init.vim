@@ -4,6 +4,7 @@ Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/leaderF'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
@@ -82,7 +83,6 @@ let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 " <leader>cg  find definition
 " <leader>cs  find reference
 " <leader>cc  find called
-" <leader>cg  find definition
 " <leader>cf  find file
 " <leader>ci  find include
 
