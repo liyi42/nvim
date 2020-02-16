@@ -9,6 +9,8 @@ Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --clang-complete' }
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
@@ -157,3 +159,10 @@ noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<cr><cr>
 
 " vim-linux-coding-style
 "let g:linuxsty_patterns = [ "/linux-stable" ]
+
+" asynctasks/asyncrun
+let g:asyncrun_open = 6
+let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
+" terminal mode: tab/curwin/top/bottom/left/right/quickfix/external
+let g:asynctasks_term_pos = 'quickfix'
+let g:asynctasks_rtp_config = 'asynctasks/asynctasks'
