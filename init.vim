@@ -15,6 +15,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'vivien/vim-linux-coding-style'
 call plug#end()
 
 " Common config
@@ -153,3 +154,6 @@ noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<cr><cr>
 noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<cr><cr>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<cr><cr>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<cr><cr>
+
+" vim-linux-coding-style
+"let g:linuxsty_patterns = [ "/linux-stable" ]
