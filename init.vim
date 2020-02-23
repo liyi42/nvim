@@ -164,5 +164,5 @@ noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<cr><cr>
 let g:asyncrun_open = 6
 let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
 " terminal mode: tab/curwin/top/bottom/left/right/quickfix/external
-let g:asynctasks_term_pos = 'quickfix'
+let g:asynctasks_term_pos = 'tab'
 let g:asynctasks_rtp_config = 'asynctasks/asynctasks'
