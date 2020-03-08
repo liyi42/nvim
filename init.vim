@@ -169,6 +169,7 @@ let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
 let g:asynctasks_term_pos = 'tab'
 let g:asynctasks_rtp_config = 'asynctasks/asynctasks.conf'
 
+" Integration with LeaderF
 function! s:lf_task_source(...)
 	let rows = asynctasks#source(&columns * 48 / 100)
 	let source = []
