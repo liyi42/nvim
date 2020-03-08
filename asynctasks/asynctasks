@@ -1,8 +1,0 @@
-[tig]
-command=tig
-output=terminal
-save=2
-
-[make-menuconfig-mips]
-command=make menuconfig ARCH=mips
-output=terminal

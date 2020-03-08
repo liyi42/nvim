@@ -17,6 +17,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'voldikss/vim-floaterm'
 Plug 'vivien/vim-linux-coding-style'
 call plug#end()
 
@@ -152,17 +153,75 @@ let g:Lf_PreviewInPopup = 1
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
-noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<cr><cr>
-noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<cr><cr>
-noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<cr><cr>
-noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<cr><cr>
+noremap <leader>lb :<C-U><C-R>=printf("Leaderf buffer %s", "")<cr><cr>
+noremap <leader>lm :<C-U><C-R>=printf("Leaderf mru %s", "")<cr><cr>
+noremap <leader>lt :<C-U><C-R>=printf("Leaderf bufTag %s", "")<cr><cr>
+noremap <leader>ll :<C-U><C-R>=printf("Leaderf line %s", "")<cr><cr>
+noremap <leader>la :<C-U><C-R>=printf("Leaderf --nowrap task")<cr><cr>
 
 " vim-linux-coding-style
-"let g:linuxsty_patterns = [ "/linux-stable" ]
+let g:linuxsty_patterns = [ "/linux-stable" ]
 
 " asynctasks/asyncrun
 let g:asyncrun_open = 6
 let g:asyncrun_rootmarks = ['.git', '.svn', '.root', '.project', '.hg']
 " terminal mode: tab/curwin/top/bottom/left/right/quickfix/external
 let g:asynctasks_term_pos = 'tab'
-let g:asynctasks_rtp_config = 'asynctasks/asynctasks'
+let g:asynctasks_rtp_config = 'asynctasks/asynctasks.conf'
+
+function! s:lf_task_source(...)
+	let rows = asynctasks#source(&columns * 48 / 100)
+	let source = []
+	for row in rows
+		let name = row[0]
+		let source += [name . '  ' . row[1] . '  : ' . row[2]]
+	endfor
+	return source
+endfunction
+
+function! s:lf_task_accept(line, arg)
+	let pos = stridx(a:line, '<')
+	if pos < 0
+		return
+	endif
+	let name = strpart(a:line, 0, pos)
+	let name = substitute(name, '^\s*\(.\{-}\)\s*$', '\1', '')
+	if name != ''
+		exec "AsyncTask " . name
+	endif
+endfunction
+
+function! s:lf_task_digest(line, mode)
+	let pos = stridx(a:line, '<')
+	if pos < 0
+		return [a:line, 0]
+	endif
+	let name = strpart(a:line, 0, pos)
+	return [name, 0]
+endfunction
+
+function! s:lf_win_init(...)
+	setlocal nonumber
+	setlocal nowrap
+endfunction
+
+let g:Lf_Extensions = get(g:, 'Lf_Extensions', {})
+let g:Lf_Extensions.task = {
+			\ 'source': string(function('s:lf_task_source'))[10:-3],
+			\ 'accept': string(function('s:lf_task_accept'))[10:-3],
+			\ 'get_digest': string(function('s:lf_task_digest'))[10:-3],
+			\ 'highlights_def': {
+			\     'Lf_hl_funcScope': '^\S\+',
+			\     'Lf_hl_funcDirname': '^\S\+\s*\zs<.*>\ze\s*:',
+			\ },
+		\ }
+
+" vim-floaterm
+let g:floaterm_width = 1.0
+let g:floaterm_height = 0.5
+let g:floaterm_position = 'topleft'
+let g:floaterm_keymap_new    = '<leader>fn'
+let g:floaterm_keymap_prev   = '<leader>fp'
+let g:floaterm_keymap_next   = '<leader>fn'
+let g:floaterm_keymap_toggle = '<leader>ft'
+let g:floaterm_winblend = 10
