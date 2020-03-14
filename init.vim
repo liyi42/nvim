@@ -19,7 +19,7 @@ Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'voldikss/vim-floaterm'
 Plug 'vivien/vim-linux-coding-style'
-Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 " Common config
@@ -50,6 +50,7 @@ colorscheme gruvbox-material
 
 " Airline
 let g:airline_theme = 'gruvbox_material'
+let g:airline#extensions#tabline#enabled = 1
 
 " Tagbar
 noremap <leader>tb :TagbarToggle<cr>
@@ -227,3 +228,7 @@ let g:floaterm_keymap_prev   = '<leader>fp'
 let g:floaterm_keymap_next   = '<leader>fn'
 let g:floaterm_keymap_toggle = '<leader>ft'
 let g:floaterm_winblend = 10
+
+" vim-gitgutter
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
