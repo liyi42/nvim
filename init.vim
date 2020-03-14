@@ -19,6 +19,7 @@ Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'voldikss/vim-floaterm'
 Plug 'vivien/vim-linux-coding-style'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " Common config
@@ -34,7 +35,7 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 " close buffer
-noremap <C-x> :q<cr>
+noremap <S-x> :q<cr>
 " Change tags                                                                   
 noremap <S-j> :tabp<cr>                                                         
 noremap <S-K> :tabn<cr>
