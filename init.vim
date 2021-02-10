@@ -11,7 +11,6 @@ Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next' }
 Plug 'Valloric/YouCompleteMe', { 'do': 'python3 install.py --clangd-completer --clang-complete' }
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'junegunn/fzf', { 'do': './install --all' }
@@ -99,21 +98,6 @@ noremap <m-d> :PreviewScroll +1<cr>
 inoremap <m-u> <c-\><c-o>:PreviewScroll -1<cr>
 inoremap <m-d> <c-\><c-o>:PreviewScroll +1<cr>
 
-" LanguageClient-neovim
-let g:LanguageClient_loadSettings = 1
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_settingsPath = expand('~/.confign/nvim/languageclient.json')
-let g:LanguageClient_selectionUI = 'quickfix'
-let g:LanguageClient_diagnosticsList = v:null
-let g:LanguageClient_hoverPreview = 'Never'
-let g:LanguageClient_serverCommands = {}
-let g:LanguageClient_serverCommands.c = ['cquery']
-let g:LanguageClient_serverCommands.cpp = ['cquery']
-
-noremap <leader>rd :call LanguageClient#textDocument_definition()<cr>
-noremap <leader>rr :call LanguageClient#textDocument_references()<cr>
-noremap <leader>rv :call LanguageClient#textDocument_hover()<cr>
-
 " YCM
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -122,6 +106,7 @@ let g:ycm_server_log_level = 'info'
 let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion = '<c-z>'
 let g:ycm_semantic_triggers =  {
 			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
 			\ 'cs,lua,javascript': ['re!\w{2}'],
@@ -133,7 +118,7 @@ let g:ycm_filetype_whitelist = {
 			\ "objc":1,
 			\ "sh":1,
 			\ "zsh":1,
-			\ "zimbu":1,
+			\ "py":1,
 			\ }
 " NERDTree
 noremap <leader>nt :NERDTreeToggle<cr>
