@@ -7,7 +7,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'Yggdroot/leaderF'
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
 Plug 'skywind3000/asynctasks.vim'
 Plug 'skywind3000/asyncrun.vim'
@@ -16,9 +15,10 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'preservim/nerdtree'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'voldikss/vim-floaterm'
 Plug 'vivien/vim-linux-coding-style'
 Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-startify'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 call plug#end()
 
 " Common config
@@ -69,27 +69,6 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+pxI']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-" Gutentags_plus
-" enable gtags module
-let g:gutentags_modules = ['ctags', 'gtags_cscope']
-if executable('ctags')
-	let g:gutentags_modules += ['ctags']
-endif
-if executable('gtags-cscope') && executable('gtags')
-	let g:gutentags_modules += ['gtags_cscope']
-endif
-" change focus to quickfix window after search (optional).
-let g:gutentags_plus_switch = 1
-" disable gutentags auto load gtags db 
-let g:gutentags_auto_add_gtags_cscope = 0
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
-" <leader>cg  find definition
-" <leader>cs  find reference
-" <leader>cc  find called
-" <leader>cf  find file
-" <leader>ci  find include
-
 " Vim-preview
 autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
@@ -130,20 +109,32 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " don't show the help in normal mode
 let g:Lf_ShortcutF = "<leader>ff"
 let g:Lf_HideHelp = 1
-let g:Lf_UseCache = 0
+let g:Lf_UseCache = 1
 let g:Lf_UseVersionControlTool = 0
 let g:Lf_IgnoreCurrentBufferName = 1
+let g:Lf_ShowDevIcons = 0
+
 " popup mode
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 
+" Leaderf search
 noremap <leader>lb :<C-U><C-R>=printf("Leaderf buffer %s", "")<cr><cr>
 noremap <leader>lm :<C-U><C-R>=printf("Leaderf mru %s", "")<cr><cr>
 noremap <leader>lt :<C-U><C-R>=printf("Leaderf bufTag %s", "")<cr><cr>
 noremap <leader>ll :<C-U><C-R>=printf("Leaderf line %s", "")<cr><cr>
 noremap <leader>la :<C-U><C-R>=printf("Leaderf --nowrap task")<cr><cr>
+noremap <leader>lf :<C-U><C-R>=printf("Leaderf file")<cr><cr>
+
+" Leaderf gtags
+let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_Gtagslabel = 'native-pygments'
+noremap <leader>lr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>ld :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>lc :<C-U><C-R>=printf("Leaderf! gtags --by-context %s --auto-jump", "")<CR><CR>
+noremap <leader>lu :<C-U><C-R>=printf("Leaderf! gtags --update")<CR><CR>
 
 " vim-linux-coding-style
 let g:linuxsty_patterns = [ "/linux-stable" ]
@@ -203,12 +194,7 @@ let g:Lf_Extensions.task = {
 			\ },
 		\ }
 
-" vim-floaterm
-let g:floaterm_width = 1.0
-let g:floaterm_height = 0.5
-let g:floaterm_position = 'topleft'
-let g:floaterm_keymap_new    = '<leader>fn'
-let g:floaterm_keymap_prev   = '<leader>fp'
-let g:floaterm_keymap_next   = '<leader>fn'
-let g:floaterm_keymap_toggle = '<leader>ft'
-let g:floaterm_winblend = 10
+" markdown-preview
+let g:mkdp_auto_start = 0
+let g:mkdp_echo_preview_url = 1
+noremap <leader>mp :MarkdownPreview<cr>
